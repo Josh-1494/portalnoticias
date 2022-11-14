@@ -6,10 +6,9 @@ package portalnoticias;
 
 import Modelos.ConexionDB;
 import java.awt.Color;
-import java.awt.Font;       
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,22 +18,21 @@ import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    private int intentos = 0;
+    public int intentos = 0;
     ConexionDB cc = new ConexionDB();
     Connection con = cc.getConneccion();
-    //Connection con = cc.Connection();
-    
+
     public login() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         BLogin.requestFocus();
     }
-    
-     public void validar() {
+
+    public void validar() {
         int resultado = 0;
-        String pass = String.valueOf(Password.getPassword());
         String usuario = Usuario.getText();
+        String pass = String.valueOf(Password.getPassword());
         String sql = "select * from usuarios where ID_USUARIO='" + usuario + "' and PASSWORD='" + pass + "'";
 
         try {
@@ -44,8 +42,10 @@ public class login extends javax.swing.JFrame {
             if (rs.next()) {
                 resultado = 1;
                 if (resultado == 1) {
-                    new Principal().setVisible(true);
-                    //this.setVisible(false);
+                    Main main = new Main();
+                    main.getUser(usuario);
+                    main.setVisible(true);
+                    this.setVisible(false);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no autorizado!", "Usuario no existe", JOptionPane.ERROR_MESSAGE);
@@ -59,7 +59,6 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en consultar la base de datos " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,7 +83,7 @@ public class login extends javax.swing.JFrame {
         Usuario = new javax.swing.JTextField();
         Password = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -179,9 +178,19 @@ public class login extends javax.swing.JFrame {
         Usuario.setForeground(new java.awt.Color(153, 153, 153));
         Usuario.setText("Ingrese su Usuario");
         Usuario.setBorder(null);
+        Usuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                UsuarioFocusGained(evt);
+            }
+        });
         Usuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 UsuarioMousePressed(evt);
+            }
+        });
+        Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                UsuarioKeyPressed(evt);
             }
         });
         jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 460, 30));
@@ -190,9 +199,19 @@ public class login extends javax.swing.JFrame {
         Password.setForeground(new java.awt.Color(153, 153, 153));
         Password.setText("**********");
         Password.setBorder(null);
+        Password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                PasswordFocusGained(evt);
+            }
+        });
         Password.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 PasswordMousePressed(evt);
+            }
+        });
+        Password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordKeyPressed(evt);
             }
         });
         jPanel2.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 460, 30));
@@ -227,49 +246,100 @@ public class login extends javax.swing.JFrame {
     private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
-        
+
     }//GEN-LAST:event_headerMousePressed
 
     private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
-        
+
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse,y - yMouse);
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
 
     private void BLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BLoginMouseEntered
-        BLogin.setBackground(new Color(255,242,159));
+        BLogin.setBackground(new Color(255, 242, 159));
     }//GEN-LAST:event_BLoginMouseEntered
 
     private void BLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BLoginMouseExited
-        BLogin.setBackground(new Color(255,221,0));
+        BLogin.setBackground(new Color(255, 221, 0));
     }//GEN-LAST:event_BLoginMouseExited
 
     private void UsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuarioMousePressed
-        if (Usuario.getText().equals("Ingrese su Usuario")){
+        if (Usuario.getText().equals("Ingrese su Usuario")) {
             Usuario.setText("");
             Usuario.setForeground(Color.white);
-        } 
-        if (String.valueOf(Password.getPassword()).isEmpty()){
+        }
+        if (String.valueOf(Password.getPassword()).isEmpty()) {
             Password.setText("**********");
-            Password.setForeground(new Color(153,153,153));  
+            Password.setForeground(new Color(153, 153, 153));
         }
     }//GEN-LAST:event_UsuarioMousePressed
 
     private void PasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordMousePressed
-        if (String.valueOf(Password.getPassword()).equals("**********")){
+        if (String.valueOf(Password.getPassword()).equals("**********")) {
             Password.setText("");
             Password.setForeground(Color.white);
         }
-        if (Usuario.getText().isEmpty()){
+        if (Usuario.getText().isEmpty()) {
             Usuario.setText("Ingrese su Usuario");
-            Usuario.setForeground(new Color(153,153,153));
+            Usuario.setForeground(new Color(153, 153, 153));
         }
     }//GEN-LAST:event_PasswordMousePressed
 
     private void BLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BLoginMouseClicked
         // REDIRIGE A LA PAGINA PRINCIPAL:
     }//GEN-LAST:event_BLoginMouseClicked
+
+    private void UsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UsuarioKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_TAB) || (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            if (String.valueOf(Password.getPassword()).equals("**********")) {
+                Password.setText("");
+                Password.setForeground(Color.white);
+            }
+            if (Usuario.getText().isEmpty()) {
+                Usuario.setText("Ingrese su Usuario");
+                Usuario.setForeground(new Color(153, 153, 153));
+            }
+
+            Password.requestFocus();
+        }
+    }//GEN-LAST:event_UsuarioKeyPressed
+
+    private void PasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PasswordFocusGained
+        if (String.valueOf(Password.getPassword()).equals("**********")) {
+            Password.setText("");
+            Password.setForeground(Color.white);
+        }
+        if (Usuario.getText().isEmpty()) {
+            Usuario.setText("Ingrese su Usuario");
+            Usuario.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_PasswordFocusGained
+
+    private void UsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsuarioFocusGained
+        if (Usuario.getText().equals("Ingrese su Usuario")) {
+            Usuario.setText("");
+            Usuario.setForeground(Color.white);
+        }
+        if (String.valueOf(Password.getPassword()).isEmpty()) {
+            Password.setText("**********");
+            Password.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_UsuarioFocusGained
+
+    private void PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_TAB) || (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            if (Usuario.getText().equals("Ingrese su Usuario")) {
+            Usuario.setText("");
+            Usuario.setForeground(Color.white);
+        }
+        if (String.valueOf(Password.getPassword()).isEmpty()) {
+            Password.setText("**********");
+            Password.setForeground(new Color(153, 153, 153));
+        }
+            Usuario.requestFocus();
+        }
+    }//GEN-LAST:event_PasswordKeyPressed
 
     /**
      * @param args the command line arguments
