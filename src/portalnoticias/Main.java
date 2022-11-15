@@ -4,9 +4,12 @@
  */
 package portalnoticias;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,13 +18,25 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame {
 
     String usuario = null;
-    int xMouse, yMouse;
     public int intentos = 0;
+    int xMouse;
+    int yMouse;
 
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+                
+        
+        Principal p1 = new Principal();
+        p1.setSize(1010, 620);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+        
         
     }
 
@@ -43,29 +58,26 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnPrincipal = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        principal = new javax.swing.JLabel();
+        btnNoticias = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        noticias = new javax.swing.JLabel();
+        btnReportes = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        reportes = new javax.swing.JLabel();
+        btnConfig = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        config = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        Title = new javax.swing.JPanel();
         ext1 = new javax.swing.JLabel();
+        content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(37, 37, 37));
@@ -80,72 +92,139 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoMain.png"))); // NOI18N
         menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 170));
 
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel9.setBackground(new java.awt.Color(255, 221, 0));
 
-        jLabel19.setText("jLabel9");
-        jPanel8.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(60, 63, 65));
+        jLabel2.setText("Usuario:");
 
-        jLabel20.setText("jLabel9");
-        jPanel8.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(60, 63, 65));
+        jLabel4.setText("jLabel2");
 
-        menu.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 270, 50));
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menu.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 270, 60));
 
-        jLabel17.setText("jLabel9");
-        jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
+        btnPrincipal.setBackground(new java.awt.Color(51, 51, 51));
+        btnPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPrincipalMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPrincipalMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnPrincipalMousePressed(evt);
+            }
+        });
+        btnPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel18.setText("jLabel9");
-        jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home-outline.png"))); // NOI18N
+        btnPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
 
-        menu.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 270, 50));
+        principal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        principal.setForeground(new java.awt.Color(255, 255, 255));
+        principal.setText("Principal");
+        btnPrincipal.add(principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
 
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menu.add(btnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 270, 50));
+
+        btnNoticias.setBackground(new java.awt.Color(51, 51, 51));
+        btnNoticias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNoticias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNoticiasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNoticiasMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnNoticiasMousePressed(evt);
+            }
+        });
+        btnNoticias.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/book-open-page-variant.png"))); // NOI18N
+        btnNoticias.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
+
+        noticias.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        noticias.setForeground(new java.awt.Color(255, 255, 255));
+        noticias.setText("Noticias");
+        btnNoticias.add(noticias, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
+
+        menu.add(btnNoticias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 270, 50));
+
+        btnReportes.setBackground(new java.awt.Color(51, 51, 51));
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnReportesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportesMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnReportesMousePressed(evt);
+            }
+        });
+        btnReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/file-chart.png"))); // NOI18N
+        btnReportes.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
+
+        reportes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        reportes.setForeground(new java.awt.Color(255, 255, 255));
+        reportes.setText("Reportes");
+        btnReportes.add(reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
+
+        menu.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 270, 50));
+
+        btnConfig.setBackground(new java.awt.Color(51, 51, 51));
+        btnConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnConfigMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConfigMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnConfigMousePressed(evt);
+            }
+        });
+        btnConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/config.png"))); // NOI18N
-        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
+        btnConfig.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
 
-        jLabel16.setText("Configuracion");
-        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
+        config.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        config.setForeground(new java.awt.Color(255, 255, 255));
+        config.setText("Configuracion");
+        btnConfig.add(config, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
 
-        menu.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 270, 50));
-
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/file-chart.png"))); // NOI18N
-        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
-
-        jLabel14.setText("Reportes");
-        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
-
-        menu.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 270, 50));
-
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/book-open-page-variant.png"))); // NOI18N
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
-
-        jLabel12.setText("Noticias");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
-
-        menu.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 270, 50));
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home-outline.png"))); // NOI18N
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
-
-        jLabel10.setText("Principal");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 140, 30));
-
-        menu.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 270, 50));
-
-        jLabel2.setText("Usuario:");
-        menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 70, 30));
-
-        jLabel4.setText("jLabel2");
-        menu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 680, 150, 30));
+        menu.add(btnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 270, 50));
 
         jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 720));
 
@@ -163,9 +242,21 @@ public class Main extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Corbel", 0, 62)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(37, 37, 37));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Portal de Noticias");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 840, 100));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1010, 80));
+
+        Title.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                TitleMouseDragged(evt);
+            }
+        });
+        Title.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TitleMousePressed(evt);
+            }
+        });
+        Title.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ext1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         ext1.setForeground(new java.awt.Color(37, 37, 37));
@@ -182,7 +273,22 @@ public class Main extends javax.swing.JFrame {
                 ext1MouseExited(evt);
             }
         });
-        jPanel2.add(ext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 50, 50));
+        Title.add(ext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 50, 50));
+
+        jPanel2.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 90));
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1010, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1010, 620));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 1010, 720));
 
@@ -217,16 +323,155 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_ext1MouseExited
 
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
+        /*xMouse = evt.getX();
+        yMouse = evt.getY();*/
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
-        int x = evt.getXOnScreen();
+        /*int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse, y - yMouse);
+        this.setLocation(x - xMouse, y - yMouse);*/
     }//GEN-LAST:event_jPanel2MouseDragged
 
+    private void btnPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrincipalMouseEntered
+        btnPrincipal.setBackground(new Color(25,25,25));
+        Font ff = principal.getFont();
+        principal.setFont(ff.deriveFont(ff.getStyle() | Font.BOLD));
+    }//GEN-LAST:event_btnPrincipalMouseEntered
+
+    private void btnPrincipalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrincipalMouseExited
+        //jPanel3.setBackground(new Color(51,51,51));
+        //Font ff = jLabel10.getFont();
+        //jLabel10.setFont(ff.deriveFont(ff.getStyle() & ~Font.BOLD));
+        resetColor(btnPrincipal, principal);
+    }//GEN-LAST:event_btnPrincipalMouseExited
+
+    private void btnNoticiasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoticiasMouseEntered
+        btnNoticias.setBackground(new Color(25,25,25));
+        Font ff = noticias.getFont();
+        noticias.setFont(ff.deriveFont(ff.getStyle() | Font.BOLD));
+    }//GEN-LAST:event_btnNoticiasMouseEntered
+
+    private void btnNoticiasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoticiasMouseExited
+        //btnNoticias.setBackground(new Color(51,51,51));
+        //Font ff = noticias.getFont();
+        //noticias.setFont(ff.deriveFont(ff.getStyle() & ~Font.BOLD));
+        resetColor(btnNoticias,noticias);
+    }//GEN-LAST:event_btnNoticiasMouseExited
+
+    private void btnReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseEntered
+        btnReportes.setBackground(new Color(25,25,25));
+        Font ff = reportes.getFont();
+        reportes.setFont(ff.deriveFont(ff.getStyle() | Font.BOLD));
+    }//GEN-LAST:event_btnReportesMouseEntered
+
+    private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
+        //btnReportes.setBackground(new Color(51,51,51));
+        //Font ff = reportes.getFont();
+        //reportes.setFont(ff.deriveFont(ff.getStyle() & ~Font.BOLD));
+        resetColor(btnReportes,reportes);
+    }//GEN-LAST:event_btnReportesMouseExited
+
+    private void btnConfigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseEntered
+        btnConfig.setBackground(new Color(25,25,25));
+        Font ff = config.getFont();
+        config.setFont(ff.deriveFont(ff.getStyle() | Font.BOLD));
+    }//GEN-LAST:event_btnConfigMouseEntered
+
+    private void btnConfigMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseExited
+        //btnConfig.setBackground(new Color(51,51,51));
+        //Font ff = config.getFont();
+        //config.setFont(ff.deriveFont(ff.getStyle() & ~Font.BOLD));
+        resetColor(btnConfig, config);
+    }//GEN-LAST:event_btnConfigMouseExited
+
+    private void btnPrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrincipalMousePressed
+        setColor(btnPrincipal, principal);
+        resetColor(btnNoticias,noticias);
+        resetColor(btnReportes,reportes);
+        resetColor(btnConfig, config);
+        // Abrir sección
+        Principal p1 = new Principal();
+        p1.setSize(1010, 620);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_btnPrincipalMousePressed
+
+    private void btnNoticiasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoticiasMousePressed
+        setColor(btnNoticias,noticias);
+        resetColor(btnPrincipal, principal);
+        resetColor(btnReportes,reportes);
+        resetColor(btnConfig, config);
+        // Abrir sección
+        Noticias p1 = new Noticias();
+        p1.setSize(1010, 620);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_btnNoticiasMousePressed
+
+    private void btnReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMousePressed
+        setColor(btnReportes,reportes);
+        resetColor(btnPrincipal, principal);
+        resetColor(btnNoticias,noticias);
+        resetColor(btnConfig, config);
+        // Abrir sección
+        Reportes p1 = new Reportes();
+        p1.setSize(1010, 620);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_btnReportesMousePressed
+
+    private void btnConfigMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMousePressed
+        setColor(btnConfig, config);
+        resetColor(btnPrincipal, principal);
+        resetColor(btnNoticias,noticias);
+        resetColor(btnReportes,reportes);
+        
+        // Abrir sección
+        Configuracion p1 = new Configuracion();
+        p1.setSize(1010, 620);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_btnConfigMousePressed
+
+    private void TitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitleMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_TitleMousePressed
+
+    private void TitleMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitleMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-xMouse,y-yMouse);
+    }//GEN-LAST:event_TitleMouseDragged
+
+    void setColor(JPanel panel, JLabel label){
+        panel.setBackground(new Color(25,25,25));
+        Font ff = label.getFont();
+        label.setFont(ff.deriveFont(ff.getStyle() | Font.BOLD));
+    }
+    void resetColor(JPanel panel, JLabel label){
+        panel.setBackground(new Color(51,51,51));
+        Font ff = label.getFont();
+        label.setFont(ff.deriveFont(ff.getStyle() & ~Font.BOLD)); 
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -263,31 +508,28 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Title;
+    private javax.swing.JPanel btnConfig;
+    private javax.swing.JPanel btnNoticias;
+    private javax.swing.JPanel btnPrincipal;
+    private javax.swing.JPanel btnReportes;
+    private javax.swing.JLabel config;
+    private javax.swing.JPanel content;
     private javax.swing.JLabel ext1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel menu;
+    private javax.swing.JLabel noticias;
+    private javax.swing.JLabel principal;
+    private javax.swing.JLabel reportes;
     // End of variables declaration//GEN-END:variables
 }
