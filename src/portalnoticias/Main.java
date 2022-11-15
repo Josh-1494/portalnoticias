@@ -240,7 +240,7 @@ public class Main extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Corbel", 0, 62)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Corbel", 1, 62)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(37, 37, 37));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Portal de Noticias");
