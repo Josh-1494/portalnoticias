@@ -262,6 +262,7 @@ public class Main extends javax.swing.JFrame {
         ext1.setForeground(new java.awt.Color(37, 37, 37));
         ext1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ext1.setText("X");
+        ext1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ext1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ext1MouseClicked(evt);
