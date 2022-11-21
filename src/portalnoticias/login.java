@@ -21,6 +21,8 @@ public class login extends javax.swing.JFrame {
     public int intentos = 0;
     ConexionDB cc = new ConexionDB();
     Connection con = cc.getConneccion();
+    
+    String v_getDatefunc;
 
     public login() {
         initComponents();
@@ -29,32 +31,49 @@ public class login extends javax.swing.JFrame {
         BLogin.requestFocus();
     }
 
-    public void validar() {
-        int resultado = 0;
+    public void getFecha() {
+        String sql = "SELECT GETDATEFUNC FROM DUAL";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            rs.next();
+
+            v_getDatefunc = rs.getString(1);
+            rs.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en consultar la base de datos " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void login(){
         String usuario = Usuario.getText();
         String pass = String.valueOf(Password.getPassword());
-        String sql = "select * from usuarios where ID_USUARIO='" + usuario + "' and PASSWORD='" + pass + "'";
+        String sql = "SELECT LOGIN_VAL_FUNC('" + usuario + "', '" + pass + "') FROM DUAL";
 
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
+            rs.next();
 
-            if (rs.next()) {
-                resultado = 1;
-                if (resultado == 1) {
-                    Main main = new Main();
-                    main.getUser(usuario);
-                    main.setVisible(true);
-                    this.setVisible(false);
-                }
-            } else {
+            String resultado = rs.getString(1);
+
+            if (rs.wasNull()) {
                 JOptionPane.showMessageDialog(null, "Usuario no autorizado!", "Usuario no existe", JOptionPane.ERROR_MESSAGE);
                 intentos = intentos + 1;
                 if (intentos == 3) {
                     JOptionPane.showMessageDialog(null, "Ha excedido el limite de 3 intentos", "Intentos", JOptionPane.ERROR_MESSAGE);
                     System.exit(0);
                 }
+
+            } else {
+                Main main = new Main();
+                main.getUser(usuario);
+                main.getFecha(v_getDatefunc);
+                main.getPortalHome(usuario);
+                main.setVisible(true);
+                this.setVisible(false);
             }
+            rs.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en consultar la base de datos " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -160,6 +179,11 @@ public class login extends javax.swing.JFrame {
                 BLoginActionPerformed(evt);
             }
         });
+        BLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BLoginKeyPressed(evt);
+            }
+        });
         jPanel2.add(BLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 460, 50));
 
         TitleUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -224,7 +248,8 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLoginActionPerformed
-        validar();
+        getFecha();
+        login();
     }//GEN-LAST:event_BLoginActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -330,16 +355,23 @@ public class login extends javax.swing.JFrame {
     private void PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_TAB) || (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
             if (Usuario.getText().equals("Ingrese su Usuario")) {
-            Usuario.setText("");
-            Usuario.setForeground(Color.white);
-        }
-        if (String.valueOf(Password.getPassword()).isEmpty()) {
-            Password.setText("**********");
-            Password.setForeground(new Color(153, 153, 153));
-        }
-            Usuario.requestFocus();
+                Usuario.setText("");
+                Usuario.setForeground(Color.white);
+            }
+            if (String.valueOf(Password.getPassword()).isEmpty()) {
+                Password.setText("**********");
+                Password.setForeground(new Color(153, 153, 153));
+            }
+            BLogin.requestFocus();
         }
     }//GEN-LAST:event_PasswordKeyPressed
+
+    private void BLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BLoginKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            getFecha(); 
+            login();
+        }
+    }//GEN-LAST:event_BLoginKeyPressed
 
     /**
      * @param args the command line arguments

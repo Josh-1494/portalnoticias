@@ -26,20 +26,13 @@ public class Configuracion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Container = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        Container = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setPreferredSize(new java.awt.Dimension(1010, 620));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        title.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        title.setText("> Configuración del sistema");
-        Header.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, -1, 320, 60));
-
-        add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 60));
 
         javax.swing.GroupLayout ContainerLayout = new javax.swing.GroupLayout(Container);
         Container.setLayout(ContainerLayout);
@@ -53,12 +46,25 @@ public class Configuracion extends javax.swing.JPanel {
         );
 
         add(Container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1010, 560));
+
+        Header.setBackground(new java.awt.Color(51, 51, 51));
+        Header.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setText("> Configuración del Sistema");
+        Header.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, -1, 710, 60));
+        Header.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, 10));
+
+        add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 60));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Container;
     private javax.swing.JPanel Header;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
