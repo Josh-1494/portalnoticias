@@ -9,7 +9,7 @@ public class ConexionDB {
     String usuario="PORTALNOTICIAS";
     String password="ADMIN123";
             
-        public Connection getConneccion(){
+    public Connection getConneccion(){
      try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conectar = (Connection) DriverManager.getConnection(myDB,usuario, password);

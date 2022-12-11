@@ -20,6 +20,7 @@ public class login extends javax.swing.JFrame {
     int xMouse, yMouse;
     public int intentos = 0;
     ConexionDB cc = new ConexionDB();
+    Principal p1 = new Principal();
     Connection con = cc.getConneccion();
     
     String v_getDatefunc;
@@ -71,6 +72,7 @@ public class login extends javax.swing.JFrame {
                 main.getFecha(v_getDatefunc);
                 main.getPortalHome(usuario);
                 main.setVisible(true);
+                main.refreshHome();
                 this.setVisible(false);
             }
             rs.close();
@@ -145,7 +147,7 @@ public class login extends javax.swing.JFrame {
                 jLabel1MouseExited(evt);
             }
         });
-        header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 0, 40, 40));
+        header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 40, 40));
 
         Panel.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 90));
 

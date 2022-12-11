@@ -9,8 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,7 +32,8 @@ public class Main extends javax.swing.JFrame {
     boolean pnNoticias = true;
     boolean pnReportes = true;
     boolean pnConfig = true;
-
+    
+ 
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
@@ -48,6 +47,28 @@ public class Main extends javax.swing.JFrame {
         p1.setSize(1010, 620);
         p1.setLocation(0, 0);
         p1.getHome();
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }
+    
+    public void refreshHome() {
+        setColor(btnPrincipal, principal);
+        resetColor(btnNoticias, noticias);
+        resetColor(btnReportes, reportes);
+        resetColor(btnConfig, config);
+        // Abrir sección
+        Principal p1 = new Principal();
+        p1.setSize(1010, 620);
+        p1.setLocation(0, 0);
+        p1.getHome();
+
+        pnPrincipal = false;
+        pnNoticias = true;
+        pnReportes = true;
+        pnConfig = true;
         
         content.removeAll();
         content.add(p1, BorderLayout.CENTER);
@@ -89,7 +110,7 @@ public class Main extends javax.swing.JFrame {
     public void getFecha(String str) {
         fecha = str;
         fechahoy.setText(fecha);
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -446,25 +467,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseExited
 
     private void btnPrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrincipalMousePressed
-        setColor(btnPrincipal, principal);
-        resetColor(btnNoticias, noticias);
-        resetColor(btnReportes, reportes);
-        resetColor(btnConfig, config);
-        // Abrir sección
-        Principal p1 = new Principal();
-        p1.setSize(1010, 620);
-        p1.setLocation(0, 0);
-        p1.getHome();
-
-        pnPrincipal = false;
-        pnNoticias = true;
-        pnReportes = true;
-        pnConfig = true;
-        
-        content.removeAll();
-        content.add(p1, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        refreshHome();
     }//GEN-LAST:event_btnPrincipalMousePressed
 
     private void btnNoticiasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoticiasMousePressed
@@ -472,6 +475,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(btnPrincipal, principal);
         resetColor(btnReportes, reportes);
         resetColor(btnConfig, config);
+        
         // Abrir sección
         Noticias p1 = new Noticias();
         p1.setSize(1010, 620);
@@ -485,6 +489,9 @@ public class Main extends javax.swing.JFrame {
         content.add(p1, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
+        
+        p1.obtenerUser(usuario);
+        
     }//GEN-LAST:event_btnNoticiasMousePressed
 
     private void btnReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMousePressed

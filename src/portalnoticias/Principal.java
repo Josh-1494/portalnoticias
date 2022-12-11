@@ -5,7 +5,6 @@
 package portalnoticias;
 
 import Modelos.ConexionDB;
-import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
