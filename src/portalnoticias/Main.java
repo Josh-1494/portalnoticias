@@ -512,6 +512,8 @@ public class Main extends javax.swing.JFrame {
         content.add(p1, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
+        
+        p1.obtenerUser(usuario);
     }//GEN-LAST:event_btnReportesMousePressed
 
     private void btnConfigMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMousePressed
@@ -533,6 +535,9 @@ public class Main extends javax.swing.JFrame {
         content.add(p1, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
+        
+        p1.obtenerUser(usuario);
+        
     }//GEN-LAST:event_btnConfigMousePressed
 
     private void TitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitleMousePressed

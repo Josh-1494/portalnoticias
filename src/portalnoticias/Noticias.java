@@ -390,6 +390,19 @@ public class Noticias extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup2 = new javax.swing.ButtonGroup();
+        Container = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        notiiciasTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        fieldBuscar = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        comboBox = new javax.swing.JComboBox<>();
+        btnAbrir = new javax.swing.JButton();
+        Header = new javax.swing.JPanel();
+        title = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         Container3 = new javax.swing.JPanel();
         btnBack1 = new javax.swing.JButton();
@@ -448,19 +461,6 @@ public class Noticias extends javax.swing.JPanel {
         Header1 = new javax.swing.JPanel();
         title1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        Container = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        notiiciasTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        fieldBuscar = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        comboBox = new javax.swing.JComboBox<>();
-        btnAbrir = new javax.swing.JButton();
-        Header = new javax.swing.JPanel();
-        title = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         Container5 = new javax.swing.JPanel();
         btnBack2 = new javax.swing.JButton();
@@ -496,6 +496,117 @@ public class Noticias extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(1010, 620));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
+
+        notiiciasTable.setAutoCreateRowSorter(true);
+        notiiciasTable.setForeground(new java.awt.Color(0, 0, 0));
+        notiiciasTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Fecha Publicación", "Título", "Tema", "SubTema", "Autor", "# Visitas", "# Ranking", "# Comentarios"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        notiiciasTable.setGridColor(new java.awt.Color(255, 255, 255));
+        notiiciasTable.setMaximumSize(new java.awt.Dimension(675, 0));
+        notiiciasTable.setRowHeight(25);
+        notiiciasTable.setSelectionBackground(new java.awt.Color(51, 51, 51));
+        notiiciasTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        notiiciasTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        notiiciasTable.getTableHeader().setReorderingAllowed(false);
+        notiiciasTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notiiciasTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(notiiciasTable);
+        if (notiiciasTable.getColumnModel().getColumnCount() > 0) {
+            notiiciasTable.getColumnModel().getColumn(0).setMinWidth(10);
+            notiiciasTable.getColumnModel().getColumn(0).setPreferredWidth(25);
+            notiiciasTable.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
+
+        Container.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 57, 990, 490));
+
+        jLabel1.setText("Buscar por:");
+        Container.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, 30));
+
+        fieldBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fieldBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldBuscarMouseClicked(evt);
+            }
+        });
+        fieldBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldBuscarKeyTyped(evt);
+            }
+        });
+        Container.add(fieldBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 290, 30));
+
+        btnAgregar.setText("Nuevo");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAgregarMousePressed(evt);
+            }
+        });
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        Container.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 90, -1));
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        Container.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 90, -1));
+
+        jLabel2.setText("Buscar:");
+        Container.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 60, 30));
+
+        Container.add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 170, 30));
+
+        btnAbrir.setText("Ver");
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirActionPerformed(evt);
+            }
+        });
+        Container.add(btnAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 100, -1));
+
+        add(Container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1010, 560));
+
+        Header.setBackground(new java.awt.Color(51, 51, 51));
+        Header.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setText("> Noticias");
+        Header.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, -1, 710, 60));
+        Header.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, 10));
+
+        add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 60));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -751,117 +862,6 @@ public class Noticias extends javax.swing.JPanel {
         jPanel1.add(Header1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 60));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        Container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
-
-        notiiciasTable.setAutoCreateRowSorter(true);
-        notiiciasTable.setForeground(new java.awt.Color(0, 0, 0));
-        notiiciasTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Fecha Publicación", "Título", "Tema", "SubTema", "Autor", "# Visitas", "# Ranking", "# Comentarios"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        notiiciasTable.setGridColor(new java.awt.Color(255, 255, 255));
-        notiiciasTable.setMaximumSize(new java.awt.Dimension(675, 0));
-        notiiciasTable.setRowHeight(25);
-        notiiciasTable.setSelectionBackground(new java.awt.Color(51, 51, 51));
-        notiiciasTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        notiiciasTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        notiiciasTable.getTableHeader().setReorderingAllowed(false);
-        notiiciasTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                notiiciasTableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(notiiciasTable);
-        if (notiiciasTable.getColumnModel().getColumnCount() > 0) {
-            notiiciasTable.getColumnModel().getColumn(0).setMinWidth(10);
-            notiiciasTable.getColumnModel().getColumn(0).setPreferredWidth(25);
-            notiiciasTable.getColumnModel().getColumn(0).setMaxWidth(30);
-        }
-
-        Container.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 57, 990, 490));
-
-        jLabel1.setText("Buscar por:");
-        Container.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, 30));
-
-        fieldBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        fieldBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fieldBuscarMouseClicked(evt);
-            }
-        });
-        fieldBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fieldBuscarKeyTyped(evt);
-            }
-        });
-        Container.add(fieldBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 290, 30));
-
-        btnAgregar.setText("Nuevo");
-        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAgregarMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnAgregarMousePressed(evt);
-            }
-        });
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-        Container.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 90, -1));
-
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-        Container.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 90, -1));
-
-        jLabel2.setText("Buscar:");
-        Container.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 60, 30));
-
-        Container.add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 170, 30));
-
-        btnAbrir.setText("Ver");
-        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirActionPerformed(evt);
-            }
-        });
-        Container.add(btnAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 100, -1));
-
-        add(Container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1010, 560));
-
-        Header.setBackground(new java.awt.Color(51, 51, 51));
-        Header.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        title.setForeground(new java.awt.Color(255, 255, 255));
-        title.setText("> Noticias");
-        Header.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, -1, 710, 60));
-        Header.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, 10));
-
-        add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 60));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

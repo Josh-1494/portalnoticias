@@ -4,19 +4,38 @@
  */
 package portalnoticias;
 
+import Modelos.ConexionDB;
+import java.sql.Connection;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author jovie
  */
 public class Configuracion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NewJPanel
-     */
+    
+    DefaultTableModel modelo;
+    ConexionDB cc = new ConexionDB();
+    Connection con = cc.getConneccion();
+    
+    private TableRowSorter trsfiltro;
+
+    Main main = new Main();
+
+    String usuario;
+    
     public Configuracion() {
         initComponents();
     }
-
+    
+    public void obtenerUser(String str) {
+        usuario = str;
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
