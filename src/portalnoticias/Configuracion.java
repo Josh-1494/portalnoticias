@@ -38,6 +38,8 @@ public class Configuracion extends javax.swing.JPanel {
         llenarTablaParametros();
         llenarTablaUsuarios();
         textNomTema.setEditable(true);
+        jPasswordField1.setEnabled(false);
+        jPasswordField2.setEnabled(false);
     }
 
     public void obtenerUser(String str) {
@@ -100,6 +102,8 @@ public class Configuracion extends javax.swing.JPanel {
         jTextField2.setText("");
         jRadioButton1.setSelected(true);
         jComboBox2.setSelectedIndex(1);
+        jPasswordField1.setText("");
+        jPasswordField2.setText("");
     }
 
     public void llenarComboSubTema() {
@@ -303,7 +307,7 @@ public class Configuracion extends javax.swing.JPanel {
         }
     }
 
-    public void seleccionarFilaUsuarios() {
+    public boolean seleccionarFilaUsuarios() {
         /*
         0- ID_USUARIO
         1- NOMBRE
@@ -332,6 +336,9 @@ public class Configuracion extends javax.swing.JPanel {
 
             jComboBox2.setSelectedItem((String.valueOf(jTable3.getValueAt(jTable3.getSelectedRow(), 6))));
 
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -405,26 +412,174 @@ public class Configuracion extends javax.swing.JPanel {
     }
 
     public void guardar() {
+        if (val == 1) {
+            nuevo();
+        } else {
+            modificar();
+        }
+    }
+    
+    public boolean valPass() {
         String pass1 = String.valueOf(jPasswordField1.getPassword());
         String pass2 = String.valueOf(jPasswordField2.getPassword());
-        
-        if (pass1.equals(pass2)) {
-            if (val == 0) {
-                nuevo();
-            } else {
-                modificar();
-            }
+
+        if (pass1.equals(pass2) && pass1 != "") {
+            return true;
         } else {
+            jPasswordField1.setText("");
+            jPasswordField2.setText("");
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    public boolean valUsuario() {
+        try {
+            modelo = (DefaultTableModel) jTable3.getModel();
+
+            String v_IdUsuario = jTextField3.getText();
+
+            String sql = "SELECT ID_USUARIO FROM USUARIOS WHERE ID_USUARIO = '" + v_IdUsuario + "'";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "El Usuario existe ", "Error", JOptionPane.ERROR_MESSAGE);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error consultando si el usuario existe " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 
     public void nuevo() {
-        
+        if (valPass()) {
+            if (!valUsuario()) {
+                Clear_TableUsuarios();
+
+                String v_IdUsuario = jTextField3.getText();
+                String v_Pass = String.valueOf(jPasswordField1.getPassword());
+                String v_nombre = jTextField4.getText();
+                String v_1apellido = jTextField5.getText();
+                String v_2apellido = jTextField6.getText();
+                String v_correo = jTextField2.getText();
+                String v_rol = String.valueOf(jComboBox2.getSelectedItem());
+                String v_notifica = "1";
+
+                if (jRadioButton1.isSelected()) {
+                    v_notifica = "1";
+                }
+                if (jRadioButton2.isSelected()) {
+                    v_notifica = "2";
+                }
+                if (jRadioButton3.isSelected()) {
+                    v_notifica = "3";
+                }
+
+                String sql = "CALL INSERT_USUARIO_PROC('" + v_IdUsuario + "', '" + v_Pass + "', '" + v_nombre + "', '" + v_1apellido + "', '" + v_2apellido + "', '" + v_correo + "', '" + v_notifica + "', '" + v_rol + "')";
+
+                try {
+                    var rs = con.prepareCall(sql);
+                    rs.execute();
+                    rs.close();
+                    llenarTablaUsuarios();
+                    limpiarUsuarios();
+                    JOptionPane.showMessageDialog(null, "Usuario Ingresado correctamente", "Completado", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    llenarTablaUsuarios();
+                    limpiarUsuarios();
+                    JOptionPane.showMessageDialog(null, "Error en el registro del Usuario " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }
 
     public void modificar() {
-        
+        if (jCheckBox1.isSelected()) {
+            if (valPass()) {
+                modificarPass();
+            }
+        } else {
+            Clear_TableUsuarios();
+
+            String v_IdUsuario = jTextField3.getText();
+            String v_nombre = jTextField4.getText();
+            String v_1apellido = jTextField5.getText();
+            String v_2apellido = jTextField6.getText();
+            String v_correo = jTextField2.getText();
+            String v_rol = String.valueOf(jComboBox2.getSelectedItem());
+            String v_notifica = "1";
+
+            if (jRadioButton1.isSelected()) {
+                v_notifica = "1";
+            }
+            if (jRadioButton2.isSelected()) {
+                v_notifica = "2";
+            }
+            if (jRadioButton3.isSelected()) {
+                v_notifica = "3";
+            }
+
+            String sql = "CALL UPDATE_USUARIOSINPASS_PROC('" + v_IdUsuario + "', '" + v_nombre + "', '" + v_1apellido + "', '" + v_2apellido + "', '" + v_correo + "', '" + v_notifica + "', '" + v_rol + "')";
+
+            try {
+                var rs = con.prepareCall(sql);
+                rs.execute();
+                rs.close();
+                llenarTablaUsuarios();
+                seleccionarFilaUsuarios();
+                Usuario.setVisible(true);
+                Agregar.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Usuario Modificado correctamente", "Completado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                llenarTablaUsuarios();
+                JOptionPane.showMessageDialog(null, "Error en el registro del Usuario " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void modificarPass() {
+        if (valPass()) {
+            Clear_TableUsuarios();
+
+            String v_IdUsuario = jTextField3.getText();
+            String v_Pass = String.valueOf(jPasswordField1.getPassword());
+            String v_nombre = jTextField4.getText();
+            String v_1apellido = jTextField5.getText();
+            String v_2apellido = jTextField6.getText();
+            String v_correo = jTextField2.getText();
+            String v_rol = String.valueOf(jComboBox2.getSelectedItem());
+            String v_notifica = "1";
+
+            if (jRadioButton1.isSelected()) {
+                v_notifica = "1";
+            }
+            if (jRadioButton2.isSelected()) {
+                v_notifica = "2";
+            }
+            if (jRadioButton3.isSelected()) {
+                v_notifica = "3";
+            }
+
+            String sql = "CALL UPDATE_USUARIOPASS_PROC('" + v_IdUsuario + "', '" + v_Pass + "', '" + v_nombre + "', '" + v_1apellido + "', '" + v_2apellido + "', '" + v_correo + "', '" + v_notifica + "', '" + v_rol + "')";
+
+            try {
+                var rs = con.prepareCall(sql);
+                rs.execute();
+                rs.close();
+                llenarTablaUsuarios();
+                seleccionarFilaUsuarios();
+                Usuario.setVisible(true);
+                Agregar.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Usuario Modificado correctamente", "Completado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                llenarTablaUsuarios();
+                JOptionPane.showMessageDialog(null, "Error en el registro del Usuario " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void Clear_TableTema() {
@@ -553,8 +708,6 @@ public class Configuracion extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
@@ -564,8 +717,13 @@ public class Configuracion extends javax.swing.JPanel {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel26 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel27 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         btnBack5 = new javax.swing.JButton();
         Header7 = new javax.swing.JPanel();
@@ -1069,12 +1227,6 @@ public class Configuracion extends javax.swing.JPanel {
 
         jLabel24.setText("Rol:");
         jPanel16.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 150, 20));
-
-        jLabel25.setText("Contraseña:");
-        jPanel16.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 20));
-
-        jLabel26.setText("Repetir Contraseña:");
-        jPanel16.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 120, 20));
         jPanel16.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 210, -1));
         jPanel16.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 210, -1));
         jPanel16.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 210, -1));
@@ -1094,8 +1246,32 @@ public class Configuracion extends javax.swing.JPanel {
         jPanel16.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, -1, -1));
 
         jPanel16.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 210, -1));
-        jPanel16.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 180, -1));
-        jPanel16.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 180, -1));
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel25.setText("Contraseña:");
+        jPanel18.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 80, 20));
+        jPanel18.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 140, -1));
+
+        jLabel26.setText("Repetir Contraseña:");
+        jPanel18.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 110, 20));
+        jPanel18.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 140, -1));
+
+        jCheckBox1.setText("Cambiar Contraseña");
+        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox1StateChanged(evt);
+            }
+        });
+        jPanel18.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("Contraseña");
+        jPanel18.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 220, -1));
+
+        jPanel16.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 270, 140));
 
         Container7.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 720, 450));
 
@@ -1338,18 +1514,38 @@ public class Configuracion extends javax.swing.JPanel {
         Usuario.setVisible(false);
         Agregar.setVisible(true);
         Parametros.setVisible(false);
+        jLabel27.setVisible(true);
+        jCheckBox1.setVisible(false);
+        jPasswordField1.setEnabled(true);
+        jPasswordField2.setEnabled(true);
+
         val = 1;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jTextField3.setEnabled(false);
-        Principal.setVisible(false);
-        Temas.setVisible(false);
-        SubTemas.setVisible(false);
-        Usuario.setVisible(false);
-        Agregar.setVisible(true);
-        Parametros.setVisible(false);
-        val = 0;
+
+        if (seleccionarFilaUsuarios()) {
+            jLabel27.setVisible(false);
+            jCheckBox1.setVisible(true);
+            jCheckBox1.setSelected(false);
+            jPasswordField1.setEnabled(false);
+            jPasswordField2.setEnabled(false);
+            jPasswordField1.setText("");
+            jPasswordField2.setText("");
+
+            jTextField3.setEnabled(false);
+            Principal.setVisible(false);
+            Temas.setVisible(false);
+            SubTemas.setVisible(false);
+            Usuario.setVisible(false);
+            Agregar.setVisible(true);
+            Parametros.setVisible(false);
+
+            val = 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario de la tabla", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
@@ -1400,6 +1596,16 @@ public class Configuracion extends javax.swing.JPanel {
         guardar();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
+        if (jCheckBox1.isSelected()) {
+            jPasswordField1.setEnabled(true);
+            jPasswordField2.setEnabled(true);
+        } else {
+            jPasswordField1.setEnabled(false);
+            jPasswordField2.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBox1StateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Agregar;
@@ -1439,6 +1645,7 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -1461,6 +1668,7 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1477,6 +1685,7 @@ public class Configuracion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
